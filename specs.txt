@@ -21,6 +21,7 @@ What functions?
 
 * Game Manager
 ** startNewGame
+** runGameLoop
 ** changeTurn
 ** checkForVictory
 
@@ -43,3 +44,4 @@ There will be text displaying output:
 * Something marking current player
 
 When you have a broad overview of how you want to build your game, identify the simplest behavior, and perhaps what behaviors to tackle after that. Remember to start simple and work one step at a time.
+
