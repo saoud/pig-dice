@@ -1,0 +1,19 @@
+What will happen when a user clicks "Play"?
+The game will prompt the user for their names.
+
+What objects will you need?
+
+
+What key-value pairs will each object need to contain in order for the game to work?
+
+
+What functions?
+
+
+How will these be triggered throughout the gameplay?
+
+
+How will information be collected from the user? How will it be displayed?
+
+
+When you have a broad overview of how you want to build your game, identify the simplest behavior, and perhaps what behaviors to tackle after that. Remember to start simple and work one step at a time.
