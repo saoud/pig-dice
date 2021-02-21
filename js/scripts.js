@@ -14,6 +14,7 @@ Player.prototype.hold = function() {
 
 function GameManager() {
     this.currentPlayer;
+    this.otherPlayer;
     this.isGameRunning = true;
 }
 
@@ -39,10 +40,13 @@ GameManager.prototype.startNewGame = function() {
     let player2 = Player("Player 2");
 
     this.currentPlayer = player1;
+    this.otherPlayer = player2;
 }
 
 GameManager.prototype.changeTurn = function() {
-    
+    let newCurrentPlayer = this.otherPlayer;
+    this.otherPlayer = this.currentPlayer;
+    this.currentPlayer = newCurrentPlayer;
 }
 
 GameManager.prototype.checkForTurnEnd = function() {
