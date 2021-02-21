@@ -2,18 +2,44 @@ What will happen when a user clicks "Play"?
 The game will prompt the user for their names.
 
 What objects will you need?
-
+* Player
+* Game Manager
 
 What key-value pairs will each object need to contain in order for the game to work?
+* Player
+** Score
+** DieValue
 
+* Game Manager
+** currentPlayer
+** isGameOver
 
 What functions?
+* Player
+** Roll Die
+** Hold
 
+* Game Manager
+** startNewGame
+** changeTurn
+** checkForVictory
 
 How will these be triggered throughout the gameplay?
-
+* Press button to roll dice or Hold
+* Press button to start new game
 
 How will information be collected from the user? How will it be displayed?
+There will be buttons for input:
+* Buttons
+** Roll Die
+** Hold
+** Start new game
 
+There will be text displaying output:
+* Player 1 Score
+* Player 2 Score
+* Player 1 Die
+* Player 2 Die
+* Something marking current player
 
 When you have a broad overview of how you want to build your game, identify the simplest behavior, and perhaps what behaviors to tackle after that. Remember to start simple and work one step at a time.
