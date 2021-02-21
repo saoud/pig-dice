@@ -5,7 +5,7 @@ function Player(name) {
     this.dieValue = 0;
 }
 
-Player.prototype.rollDie = function() {
+Player.prototype.roll = function() {
 
 }
 
@@ -17,23 +17,36 @@ function GameManager() {
     this.isGameRunning = true;
 }
 
+GameManager.prototype.proccessInput = function(input) {
+    if (input === "start new game") {
+        this.startNewGame();
+    } 
+    
+    if (this.isGameRunning === true) {
+        if (input === "roll") {
+            this.currentPlayer.roll();
+        } else if (input === "hold") {
+            this.currentPlayer.hold();
+        }
+        checkForTurnEnd();
+        checkForVictory();
+    }
+}
+
 GameManager.prototype.startNewGame = function() {
     this.isGameRunning = true;
     let player1 = Player("Player 1");
     let player2 = Player("Player 2");
 
     this.currentPlayer = player1;
-    this.runGameLoop();
-}
-
-GameManager.prototype.runGameLoop = function() {
-    while (this.isGameRunning === true) {
-        playerInput = this.checkForInput();
-    }
 }
 
 GameManager.prototype.changeTurn = function() {
     
+}
+
+GameManager.prototype.checkForTurnEnd = function() {
+
 }
 
 GameManager.prototype.checkForVictory = function() {
@@ -48,5 +61,20 @@ GameManager.prototype.checkForVictory = function() {
 
 //UI Logic
 $(document).ready(function() {
-    
+    gameManager = new GameManager();
+
+    $("#start-new-game").click(function(event) {
+       console.log("Start new game");
+       gameManager.proccessInput("start new game");
+    })
+
+    $("#roll").click(function(event) {
+        console.log("Roll");
+        gameManager.proccessInput("roll");
+    })
+
+    $("#hold").click(function(event) {
+        console.log("Hold");
+        gameManager.proccessInput("hold");
+    })
 })
