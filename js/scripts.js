@@ -46,12 +46,14 @@ GameManager.prototype.changeTurn = function() {
 }
 
 GameManager.prototype.checkForTurnEnd = function() {
-
+  if (this.currentPlayer.dieValue === 1) {
+    this.changeTurn();
+  }
 }
 
 GameManager.prototype.checkForVictory = function() {
-    while (this.score < 100) {
-        
+    if (this.score >= 100) {
+        this.isGameRunning = false;
     }
 }
 
