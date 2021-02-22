@@ -60,7 +60,7 @@ Expect: If new game starts, Player 1 and Player 2 scores become 0 and current pl
 ## Notes
 
 ## License
-* [MIT](https://choosealicense.com/licenses/mit)
+* [MIT](https://github.com/saoud/pig-dice/blob/main/LICENSE)
 * Copyright 2021 Saoud Rana and Shanen Cross
 ## Contact
 Saoud Rana githubissues@saoud.dev
