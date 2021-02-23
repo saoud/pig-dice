@@ -11,34 +11,35 @@ Player.prototype.roll = function() {
 }
 
 function GameManager() {
-    this.currentPlayer;
-    this.otherPlayer;
-    this.isGameRunning = true;
+    this.currentPlayer = null;
+    this.otherPlayer = null;
+    this.isGameRunning = false;
 }
 
 GameManager.prototype.proccessInput = function(input) {
     if (input === "start new game") {
         this.startNewGame();
     } 
-    
-    if (this.isGameRunning === true) {
+    else if (this.isGameRunning === true) {
         if (input === "roll") {
             this.currentPlayer.roll();
         } else if (input === "hold") {
-            this.gameManager.hold();
+            this.hold();
         }
-        checkForTurnEnd();
-        checkForVictory();
+        this.checkForTurnEnd();
+        this.checkForVictory();
     }
 }
 
 GameManager.prototype.startNewGame = function() {
     this.isGameRunning = true;
-    let player1 = Player("Player 1");
-    let player2 = Player("Player 2");
+    let player1 = new Player("Player 1");
+    let player2 = new Player("Player 2");
 
     this.currentPlayer = player1;
     this.otherPlayer = player2;
+
+    console.log(this.currentPlayer);
 }
 
 GameManager.prototype.changeTurn = function() {
@@ -55,7 +56,9 @@ GameManager.prototype.checkForTurnEnd = function() {
 }
 
 GameManager.prototype.checkForVictory = function() {
+    console.log("checking for victory");
     if (this.score >= 100) {
+        console.log(">=100!!!");
         this.isGameRunning = false;
     }
 }
