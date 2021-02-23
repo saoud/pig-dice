@@ -5,7 +5,7 @@ function Player(name) {
     this.dieValue = 0;
 }
 
-Player.prototype.rollDie = function() {
+Player.prototype.roll = function() {
 
 }
 
@@ -14,7 +14,24 @@ Player.prototype.hold = function() {
 
 function GameManager() {
     this.currentPlayer;
+    this.otherPlayer;
     this.isGameRunning = true;
+}
+
+GameManager.prototype.proccessInput = function(input) {
+    if (input === "start new game") {
+        this.startNewGame();
+    } 
+    
+    if (this.isGameRunning === true) {
+        if (input === "roll") {
+            this.currentPlayer.roll();
+        } else if (input === "hold") {
+            this.currentPlayer.hold();
+        }
+        checkForTurnEnd();
+        checkForVictory();
+    }
 }
 
 GameManager.prototype.startNewGame = function() {
@@ -23,22 +40,24 @@ GameManager.prototype.startNewGame = function() {
     let player2 = Player("Player 2");
 
     this.currentPlayer = player1;
-    this.runGameLoop();
-}
-
-GameManager.prototype.runGameLoop = function() {
-    while (this.isGameRunning === true) {
-        playerInput = this.checkForInput();
-    }
+    this.otherPlayer = player2;
 }
 
 GameManager.prototype.changeTurn = function() {
-    
+    let newCurrentPlayer = this.otherPlayer;
+    this.otherPlayer = this.currentPlayer;
+    this.currentPlayer = newCurrentPlayer;
+}
+
+GameManager.prototype.checkForTurnEnd = function() {
+  if (this.currentPlayer.dieValue === 1) {
+    this.changeTurn();
+  }
 }
 
 GameManager.prototype.checkForVictory = function() {
-    while (this.score < 100) {
-        
+    if (this.score >= 100) {
+        this.isGameRunning = false;
     }
 }
 
@@ -48,5 +67,20 @@ GameManager.prototype.checkForVictory = function() {
 
 //UI Logic
 $(document).ready(function() {
-    
+    gameManager = new GameManager();
+
+    $("#start-new-game").click(function(event) {
+       console.log("Start new game");
+       gameManager.proccessInput("start new game");
+    })
+
+    $("#roll").click(function(event) {
+        console.log("Roll");
+        gameManager.proccessInput("roll");
+    })
+
+    $("#hold").click(function(event) {
+        console.log("Hold");
+        gameManager.proccessInput("hold");
+    })
 })
