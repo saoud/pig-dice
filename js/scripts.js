@@ -38,8 +38,6 @@ GameManager.prototype.startNewGame = function() {
 
     this.currentPlayer = player1;
     this.otherPlayer = player2;
-
-    console.log(this.currentPlayer);
 }
 
 GameManager.prototype.changeTurn = function() {
@@ -56,9 +54,7 @@ GameManager.prototype.checkForTurnEnd = function() {
 }
 
 GameManager.prototype.checkForVictory = function() {
-    console.log("checking for victory");
-    if (this.score >= 100) {
-        console.log(">=100!!!");
+    if (this.currentPlayer.score >= 100) {
         this.isGameRunning = false;
     }
 }
@@ -67,25 +63,19 @@ GameManager.prototype.hold = function() {
     this.changeTurn();
 }
 
-
-
-
 //UI Logic
 $(document).ready(function() {
     gameManager = new GameManager();
 
     $("#start-new-game").click(function(event) {
-       console.log("Start new game");
        gameManager.proccessInput("start new game");
     })
 
     $("#roll").click(function(event) {
-        console.log("Roll");
         gameManager.proccessInput("roll");
     })
 
     $("#hold").click(function(event) {
-        console.log("Hold");
         gameManager.proccessInput("hold");
     })
 })
