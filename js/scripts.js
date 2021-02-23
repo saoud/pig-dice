@@ -68,14 +68,26 @@ $(document).ready(function() {
     gameManager = new GameManager();
 
     $("#start-new-game").click(function(event) {
+       console.log("updateUI");
        gameManager.proccessInput("start new game");
+       updateUI(gameManager);
     })
 
     $("#roll").click(function(event) {
         gameManager.proccessInput("roll");
+        updateUI(gameManager);
     })
 
     $("#hold").click(function(event) {
         gameManager.proccessInput("hold");
+        updateUI(gameManager);
     })
 })
+
+function updateUI(gameManager) {
+    $("#player1.dieValue").text(gameManager.currentPlayer.dieValue);
+    $("player1.score").text(gameManager.currentPlayer.score);
+
+    $("player2.dieValue").text(gameManager.otherPlayer.dieValue);
+    $("player2.score").text(gameManager.otherPlayer.score);
+}
