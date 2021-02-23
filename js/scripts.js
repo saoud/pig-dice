@@ -68,7 +68,6 @@ $(document).ready(function() {
     gameManager = new GameManager();
 
     $("#start-new-game").click(function(event) {
-       console.log("updateUI");
        gameManager.proccessInput("start new game");
        updateUI(gameManager);
     })
@@ -85,6 +84,8 @@ $(document).ready(function() {
 })
 
 function updateUI(gameManager) {
+    console.log("UpdateUI");
+    console.log($("#player1"));
     $("#player1.dieValue").text(gameManager.currentPlayer.dieValue);
     $("player1.score").text(gameManager.currentPlayer.score);
 
