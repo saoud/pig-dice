@@ -6,10 +6,8 @@ function Player(name) {
 }
 
 Player.prototype.roll = function() {
-
-}
-
-Player.prototype.hold = function() {
+    this.dieValue = Math.floor(Math.random() * 6) + 1;
+    this.score += this.dieValue;
 }
 
 function GameManager() {
@@ -61,6 +59,9 @@ GameManager.prototype.checkForVictory = function() {
     }
 }
 
+GameManager.prototype.hold = function() {
+    this.changeTurn();
+}
 
 
 
