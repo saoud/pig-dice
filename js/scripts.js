@@ -25,7 +25,7 @@ GameManager.prototype.proccessInput = function(input) {
         if (input === "roll") {
             this.currentPlayer.roll();
         } else if (input === "hold") {
-            this.currentPlayer.hold();
+            this.gameManager.hold();
         }
         checkForTurnEnd();
         checkForVictory();
@@ -49,6 +49,7 @@ GameManager.prototype.changeTurn = function() {
 
 GameManager.prototype.checkForTurnEnd = function() {
   if (this.currentPlayer.dieValue === 1) {
+    this.currentPlayer.score = 0;
     this.changeTurn();
   }
 }
