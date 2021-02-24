@@ -44,6 +44,7 @@ GameManager.prototype.startNewGame = function() {
 }
 
 GameManager.prototype.changeTurn = function() {
+    console.log("Changing turns!");
     this.players[this.currentPlayerKey].turnScore = 0;
 
     if (this.currentPlayerKey === "player1") {
@@ -99,6 +100,6 @@ function updateUI(gameManager) {
     $("#player1 .score").text(gameManager.players.player1.score);
 
     $("#player2 .dieValue").text(gameManager.players.player2.dieValue);
-    $("#player2 .turnScore").text(gameManager.players.player1.turnScore);
+    $("#player2 .turnScore").text(gameManager.players.player2.turnScore);
     $("#player2 .score").text(gameManager.players.player2.score);
 }
