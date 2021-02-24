@@ -3,16 +3,20 @@ function Player(name) {
     this.name = name;
     this.score = 0;
     this.dieValue = 0;
+    this.turnScore = 0;
 }
 
 Player.prototype.roll = function() {
     this.dieValue = Math.floor(Math.random() * 6) + 1;
-    this.score += this.dieValue;
+    this.turnScore += this.dieValue;
 }
 
 function GameManager() {
-    this.currentPlayer = null;
-    this.otherPlayer = null;
+    this.players = {
+        "player1": null,
+        "player2": null
+    };
+    this.currentPlayerKey = "";
     this.isGameRunning = false;
 }
 
@@ -22,7 +26,7 @@ GameManager.prototype.proccessInput = function(input) {
     } 
     else if (this.isGameRunning === true) {
         if (input === "roll") {
-            this.currentPlayer.roll();
+            this.players[this.currentPlayerKey].roll();
         } else if (input === "hold") {
             this.hold();
         }
@@ -33,33 +37,37 @@ GameManager.prototype.proccessInput = function(input) {
 
 GameManager.prototype.startNewGame = function() {
     this.isGameRunning = true;
-    let player1 = new Player("Player 1");
-    let player2 = new Player("Player 2");
+    this.players.player1 = new Player("Player 1");
+    this.players.player2 = new Player("Player 2");
 
-    this.currentPlayer = player1;
-    this.otherPlayer = player2;
+    this.currentPlayerKey = "player1";
 }
 
 GameManager.prototype.changeTurn = function() {
-    let newCurrentPlayer = this.otherPlayer;
-    this.otherPlayer = this.currentPlayer;
-    this.currentPlayer = newCurrentPlayer;
+    this.players[this.currentPlayerKey].turnScore = 0;
+
+    if (this.currentPlayerKey === "player1") {
+        this.currentPlayerKey = "player2";
+    }
+    else if (this.currentPlayerKey === "player2") {
+        this.currentPlayerKey = "player1";
+    }
 }
 
 GameManager.prototype.checkForTurnEnd = function() {
-  if (this.currentPlayer.dieValue === 1) {
-    this.currentPlayer.score = 0;
+  if (this.players[this.currentPlayerKey].dieValue === 1) {
     this.changeTurn();
   }
 }
 
 GameManager.prototype.checkForVictory = function() {
-    if (this.currentPlayer.score >= 100) {
+    if (this.players[this.currentPlayerKey].score >= 100) {
         this.isGameRunning = false;
     }
 }
 
 GameManager.prototype.hold = function() {
+    this.players[this.currentPlayerKey].score += this.players[this.currentPlayerKey].turnScore;
     this.changeTurn();
 }
 
@@ -84,9 +92,13 @@ $(document).ready(function() {
 })
 
 function updateUI(gameManager) {
-    $("#player1.dieValue").text(gameManager.currentPlayer.dieValue);
-    $("player1.score").text(gameManager.currentPlayer.score);
+    $("#currentPlayer").text(gameManager.players[gameManager.currentPlayerKey].name);
 
-    $("player2.dieValue").text(gameManager.otherPlayer.dieValue);
-    $("player2.score").text(gameManager.otherPlayer.score);
+    $("#player1 .dieValue").text(gameManager.players.player1.dieValue);
+    $("#player1 .turnScore").text(gameManager.players.player1.turnScore);
+    $("#player1 .score").text(gameManager.players.player1.score);
+
+    $("#player2 .dieValue").text(gameManager.players.player2.dieValue);
+    $("#player2 .turnScore").text(gameManager.players.player1.turnScore);
+    $("#player2 .score").text(gameManager.players.player2.score);
 }
