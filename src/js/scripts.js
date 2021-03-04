@@ -1,5 +1,7 @@
 //Business Logic
-function Player(name) {
+export function Player(name, score, dieValue, turnScore) {
+
+// function Player(name) {
     this.name = name;
     this.score = 0;
     this.dieValue = 0;
@@ -11,7 +13,7 @@ Player.prototype.roll = function() {
     this.turnScore += this.dieValue;
 }
 
-function GameManager() {
+export function GameManager() {
     this.players = {
         "player1": null,
         "player2": null
@@ -70,36 +72,4 @@ GameManager.prototype.checkForVictory = function() {
 GameManager.prototype.hold = function() {
     this.players[this.currentPlayerKey].score += this.players[this.currentPlayerKey].turnScore;
     this.changeTurn();
-}
-
-//UI Logic
-$(document).ready(function() {
-    gameManager = new GameManager();
-
-    $("#start-new-game").click(function(event) {
-       gameManager.proccessInput("start new game");
-       updateUI(gameManager);
-    })
-
-    $("#roll").click(function(event) {
-        gameManager.proccessInput("roll");
-        updateUI(gameManager);
-    })
-
-    $("#hold").click(function(event) {
-        gameManager.proccessInput("hold");
-        updateUI(gameManager);
-    })
-})
-
-function updateUI(gameManager) {
-    $("#currentPlayer").text(gameManager.players[gameManager.currentPlayerKey].name);
-
-    $("#player1 .dieValue").text(gameManager.players.player1.dieValue);
-    $("#player1 .turnScore").text(gameManager.players.player1.turnScore);
-    $("#player1 .score").text(gameManager.players.player1.score);
-
-    $("#player2 .dieValue").text(gameManager.players.player2.dieValue);
-    $("#player2 .turnScore").text(gameManager.players.player2.turnScore);
-    $("#player2 .score").text(gameManager.players.player2.score);
 }
